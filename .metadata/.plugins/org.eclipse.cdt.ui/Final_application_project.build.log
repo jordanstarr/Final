@@ -1,0 +1,21 @@
+14:40:49 **** Build of configuration Debug for project Final_application_project ****
+make all 
+'Building file: ../src/main_vanilla_test.cpp'
+'Invoking: MicroBlaze g++ compiler'
+mb-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main_vanilla_test.o" -IC:/Users/Jordan/OneDrive/College/Engineering/SoC/Final/Final_app/export/Final_app/sw/Final_app/standalone_domain/bspinclude/include -mno-xl-reorder -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main_vanilla_test.d" -MT"src/main_vanilla_test.o" -o "src/main_vanilla_test.o" "../src/main_vanilla_test.cpp"
+'Finished building: ../src/main_vanilla_test.cpp'
+' '
+'Building target: Final_application_project.elf'
+'Invoking: MicroBlaze g++ linker'
+mb-g++ -Wl,-T -Wl,../src/lscript.ld -LC:/Users/Jordan/OneDrive/College/Engineering/SoC/Final/Final_app/export/Final_app/sw/Final_app/standalone_domain/bsplib/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Final_application_project.elf"  ./src/chu_init.o ./src/gpio_cores.o ./src/main_vanilla_test.o ./src/sseg_core.o ./src/timer_core.o ./src/uart_core.o ./src/xadc_core.o   -Wl,--start-group,-lxil,-lgcc,-lc,-lstdc++,--end-group
+'Finished building target: Final_application_project.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Final_application_project.elf  |tee "Final_application_project.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  28400	    284	   3172	  31856	   7c70	Final_application_project.elf
+'Finished building: Final_application_project.elf.size'
+' '
+
+14:40:51 Build Finished (took 2s.199ms)
+

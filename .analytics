@@ -1,0 +1,16 @@
+timestamp=[2021-12-01 13:33:29], mode=WORKBENCH_START, duration=0:00:12.279, duration_ms=12279, data={}
+timestamp=[2021-12-01 13:33:30], mode=WORKBENCH_UI_INIT, duration=0:00:00.903, duration_ms=903, data={editors_count=0, platform_editors_count=0, projects_count=0, platform_projects_count=0, active_platform_editor=false, projects=}
+timestamp=[2021-12-01 13:33:32], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.058, duration_ms=58, data={}
+timestamp=[2021-12-01 13:34:11], mode=PLATFORM_CREATION, duration=0:00:11.601, duration_ms=11601, data={platform_source=dsa, os=standalone, processor=microblaze, platform=null}
+timestamp=[2021-12-01 13:35:07], mode=APP_CREATION, duration=0:00:06.559, duration_ms=6559, data={name=Final_application_project, project_type=sdk, os=standalone, processor=microblaze_I, runtime=C/C++, platform=Final_app, application_type=application}
+timestamp=[2021-12-01 13:35:32], mode=PLATFORM_GENERATION, duration=0:00:17.135, duration_ms=17135, data={name=Final_app}
+timestamp=[2021-12-01 13:37:28], mode=BUILD, duration=0:00:07.504, duration_ms=7504, data={name=Final_application_project, configuration=Debug, clean_build=false}
+timestamp=[2021-12-01 13:37:45], mode=BUILD, duration=0:00:02.484, duration_ms=2484, data={name=Final_application_project, configuration=Debug, clean_build=false}
+timestamp=[2021-12-01 14:30:34], mode=WORKBENCH_START, duration=0:00:11.368, duration_ms=11368, data={}
+timestamp=[2021-12-01 14:30:35], mode=WORKBENCH_UI_INIT, duration=0:00:01.409, duration_ms=1409, data={editors_count=4, platform_editors_count=1, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=Final_app,Final_application_project,Final_application_project_system,RemoteSystemsTempFiles}
+timestamp=[2021-12-01 14:30:36], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.191, duration_ms=191, data={}
+timestamp=[2021-12-01 14:40:49], mode=PLATFORM_GENERATION, duration=0:00:09.409, duration_ms=9409, data={name=Final_app}
+timestamp=[2021-12-01 14:40:51], mode=BUILD, duration=0:00:02.267, duration_ms=2267, data={name=Final_application_project, configuration=Debug, clean_build=false}
+timestamp=[2021-12-05 21:04:07], mode=WORKBENCH_START, duration=0:00:36.732, duration_ms=36732, data={}
+timestamp=[2021-12-05 21:04:10], mode=WORKBENCH_UI_INIT, duration=0:00:02.933, duration_ms=2933, data={editors_count=5, platform_editors_count=1, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=Final_app,Final_application_project,Final_application_project_system,RemoteSystemsTempFiles}
+timestamp=[2021-12-05 21:04:27], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:01.526, duration_ms=1526, data={}

@@ -1,0 +1,89 @@
+14:40:39 **** Build of project Final_app ****
+buildplatform.bat 63630 Final_app  
+XSDB Server Channel: tcfchan#2
+Reading the platform  : "Final_app"
+Building the BSP Library for domain  - standalone_domain on processor microblaze_I
+make --no-print-directory seq_libs
+
+'Finished building libraries sequentially.'
+
+make -j 6 --no-print-directory par_libs
+
+"Running Make include in microblaze_I/libsrc/bram_v4_6/src"
+
+make -C microblaze_I/libsrc/bram_v4_6/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILE
+R_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata
+-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+
+"Running Make include in microblaze_I/libsrc/cpu_v2_13/src"
+
+make -C microblaze_I/libsrc/cpu_v2_13/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILE
+R_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata
+-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+
+"Running Make include in microblaze_I/libsrc/iomodule_v2_11/src"
+
+make -C microblaze_I/libsrc/iomodule_v2_11/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "CO
+MPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -
+fdata-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+
+"Running Make include in microblaze_I/libsrc/standalone_v7_5/src"
+
+make -C microblaze_I/libsrc/standalone_v7_5/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "C
+OMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections 
+-fdata-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+
+"Running Make libs in microblaze_I/libsrc/bram_v4_6/src"
+
+make -C microblaze_I/libsrc/bram_v4_6/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILER_F
+LAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-se
+ctions -Wall -Wextra -fno-tree-loop-distribute-patterns"
+
+"Running Make libs in microblaze_I/libsrc/cpu_v2_13/src"
+
+make -C microblaze_I/libsrc/cpu_v2_13/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILER_F
+LAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-se
+ctions -Wall -Wextra -fno-tree-loop-distribute-patterns"
+
+"Running Make libs in microblaze_I/libsrc/iomodule_v2_11/src"
+
+make -C microblaze_I/libsrc/iomodule_v2_11/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPI
+LER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fda
+ta-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+
+"Running Make libs in microblaze_I/libsrc/standalone_v7_5/src"
+
+make -C microblaze_I/libsrc/standalone_v7_5/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMP
+ILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fd
+ata-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+
+'Finished building libraries parallelly.'
+
+make --no-print-directory archive
+
+mb-ar -r  microblaze_I/lib/libxil.a microblaze_I/lib/xplatform_info.o microblaze_I/lib/microblaze_disable_exceptions.o microbla
+ze_I/lib/print.o microblaze_I/lib/_exit.o microblaze_I/lib/xil_testio.o microblaze_I/lib/microblaze_disable_dcache.o microblaze
+_I/lib/microblaze_flush_dcache_range.o microblaze_I/lib/microblaze_flush_cache_ext.o microblaze_I/lib/xbram_sinit.o microblaze_
+I/lib/xil_misc_psreset_api.o microblaze_I/lib/xil_cache.o microblaze_I/lib/inbyte.o microblaze_I/lib/xbram_g.o microblaze_I/lib
+/xiomodule_intr.o microblaze_I/lib/xiomodule_options.o microblaze_I/lib/microblaze_exception_handler.o microblaze_I/lib/microbl
+aze_scrub.o microblaze_I/lib/microblaze_invalidate_dcache.o microblaze_I/lib/microblaze_disable_interrupts.o microblaze_I/lib/x
+bram_selftest.o microblaze_I/lib/microblaze_interrupt_handler.o microblaze_I/lib/xiomodule_l.o microblaze_I/lib/microblaze_disa
+ble_icache.o microblaze_I/lib/xil_clocking.o microblaze_I/lib/xil_mem.o microblaze_I/lib/xiomodule.o microblaze_I/lib/microblaz
+e_flush_cache_ext_range.o microblaze_I/lib/xbram_intr.o microblaze_I/lib/xil_sleepcommon.o microblaze_I/lib/xil_printf.o microb
+laze_I/lib/xio.o microblaze_I/lib/xiomodule_extra.o microblaze_I/lib/outbyte.o microblaze_I/lib/microblaze_invalidate_dcache_ra
+nge.o microblaze_I/lib/microblaze_invalidate_cache_ext.o microblaze_I/lib/microblaze_sleep.o microblaze_I/lib/hw_exception_hand
+ler.o microblaze_I/lib/xiomodule_stats.o microblaze_I/lib/xil_util.o microblaze_I/lib/microblaze_update_dcache.o microblaze_I/l
+ib/xil_testcache.o microblaze_I/lib/microblaze_selftest.o microblaze_I/lib/microblaze_interrupts_g.o microblaze_I/lib/microblaz
+e_enable_exceptions.o microblaze_I/lib/xiomodule_uart_intr.o microblaze_I/lib/microblaze_enable_dcache.o microblaze_I/lib/xbram
+.o microblaze_I/lib/microblaze_invalidate_icache_range.o microblaze_I/lib/microblaze_init_dcache_range.o microblaze_I/lib/micro
+blaze_invalidate_icache.o microblaze_I/lib/errno.o microblaze_I/lib/xiomodule_uart.o microblaze_I/lib/microblaze_invalidate_cac
+he_ext_range.o microblaze_I/lib/xil_exception.o microblaze_I/lib/pvr.o microblaze_I/lib/xil_testmem.o microblaze_I/lib/microbla
+ze_update_icache.o microblaze_I/lib/microblaze_flush_dcache.o microblaze_I/lib/xiomodule_g.o microblaze_I/lib/xil_assert.o micr
+oblaze_I/lib/microblaze_enable_interrupts.o microblaze_I/lib/microblaze_enable_icache.o microblaze_I/lib/xiomodule_selftest.o m
+icroblaze_I/lib/fcntl.o microblaze_I/lib/microblaze_init_icache_range.o
+
+'Finished building libraries'
+
+
+14:40:49 Build Finished (took 9s.164ms)
+

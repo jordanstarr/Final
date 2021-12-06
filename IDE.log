@@ -1,0 +1,44 @@
+13:33:31 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\Users\Jordan\OneDrive\College\Engineering\SoC\Final\temp_xsdb_launch_script.tcl
+13:33:32 INFO  : Registering command handlers for Vitis TCF services
+13:33:32 INFO  : Platform repository initialization has completed.
+13:33:37 INFO  : XSCT server has started successfully.
+13:33:37 INFO  : plnx-install-location is set to ''
+13:33:38 INFO  : Successfully done setting XSCT server connection channel  
+13:33:38 INFO  : Successfully done query RDI_DATADIR 
+13:33:38 INFO  : Successfully done setting workspace for the tool. 
+13:34:10 INFO  : Result from executing command 'getProjects': Final_app
+13:34:10 INFO  : Result from executing command 'getPlatforms': 
+13:35:32 INFO  : Result from executing command 'getProjects': Final_app
+13:35:32 INFO  : Result from executing command 'getPlatforms': Final_app|C:/Users/Jordan/OneDrive/College/Engineering/SoC/Final/Final_app/export/Final_app/Final_app.xpfm
+13:35:32 INFO  : Checking for BSP changes to sync application flags for project 'Final_application_project'...
+13:37:21 INFO  : Checking for BSP changes to sync application flags for project 'Final_application_project'...
+13:37:43 INFO  : Checking for BSP changes to sync application flags for project 'Final_application_project'...
+13:38:44 INFO  : Bit file 'C:/Users/Jordan/OneDrive/College/Engineering/SoC/Final/Final_application_project/_ide/bitstream/download.bit' is generated.
+13:38:44 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:30:31 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\Users\Jordan\OneDrive\College\Engineering\SoC\Final\temp_xsdb_launch_script.tcl
+14:30:36 INFO  : Platform repository initialization has completed.
+14:30:37 INFO  : Registering command handlers for Vitis TCF services
+14:30:37 INFO  : XSCT server has started successfully.
+14:30:37 INFO  : plnx-install-location is set to ''
+14:30:41 INFO  : Successfully done setting XSCT server connection channel  
+14:30:41 INFO  : Successfully done query RDI_DATADIR 
+14:30:41 INFO  : Successfully done setting workspace for the tool. 
+14:33:31 INFO  : Bit file 'C:/Users/Jordan/OneDrive/College/Engineering/SoC/Final/Final_application_project/_ide/bitstream/download.bit' is generated.
+14:33:34 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:33:34 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Nexys4DDR 210292A4C6F2A" && level==0 && jtag_device_ctx=="jsn-Nexys4DDR-210292A4C6F2A-13631093-0"}' command is executed.
+14:33:35 INFO  : Device configured successfully with "C:/Users/Jordan/OneDrive/College/Engineering/SoC/Final/Final_application_project/_ide/bitstream/download.bit"
+14:40:48 INFO  : Result from executing command 'getProjects': Final_app
+14:40:48 INFO  : Result from executing command 'getPlatforms': Final_app|C:/Users/Jordan/OneDrive/College/Engineering/SoC/Final/Final_app/export/Final_app/Final_app.xpfm
+14:40:49 INFO  : Checking for BSP changes to sync application flags for project 'Final_application_project'...
+14:41:53 INFO  : Bit file 'C:/Users/Jordan/OneDrive/College/Engineering/SoC/Final/Final_application_project/_ide/bitstream/download.bit' is generated.
+14:41:53 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:41:53 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Nexys4DDR 210292A4C6F2A" && level==0 && jtag_device_ctx=="jsn-Nexys4DDR-210292A4C6F2A-13631093-0"}' command is executed.
+14:41:54 INFO  : Device configured successfully with "C:/Users/Jordan/OneDrive/College/Engineering/SoC/Final/Final_application_project/_ide/bitstream/download.bit"
+21:03:58 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\Users\Jordan\OneDrive\College\Engineering\SoC\Final\temp_xsdb_launch_script.tcl
+21:04:23 INFO  : XSCT server has started successfully.
+21:04:23 INFO  : plnx-install-location is set to ''
+21:04:23 INFO  : Successfully done setting XSCT server connection channel  
+21:04:23 INFO  : Successfully done setting workspace for the tool. 
+21:04:26 INFO  : Registering command handlers for Vitis TCF services
+21:04:27 INFO  : Platform repository initialization has completed.
+21:04:42 INFO  : Successfully done query RDI_DATADIR 

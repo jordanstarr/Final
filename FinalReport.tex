@@ -1,0 +1,468 @@
+% Digital Logic Report Template
+% Created: 2020-01-10, John Miller
+
+%==========================================================
+%=========== Document Setup  ==============================
+
+% Formatting defined by class file
+\documentclass[11pt]{article}
+
+% ---- Document formatting ----
+\usepackage[margin=1in]{geometry}	% Narrower margins
+\usepackage{booktabs}				% Nice formatting of tables
+\usepackage{graphicx}				% Ability to include graphics
+\usepackage{multicol}
+
+%\setlength\parindent{0pt}	% Do not indent first line of paragraphs 
+\usepackage[parfill]{parskip}		% Line space b/w paragraphs
+%	parfill option prevents last line of pgrph from being fully justified
+
+% Parskip package adds too much space around titles, fix with this
+\RequirePackage{titlesec}
+\titlespacing\section{0pt}{8pt plus 4pt minus 2pt}{3pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{4pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{2pt plus 4pt minus 2pt}{-6pt plus 2pt minus 2pt}
+
+% ---- Hyperlinks ----
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}	% For URL's. Automatically links internal references.
+
+% ---- Code listings ----
+\usepackage{listings} 					% Nice code layout and inclusion
+\usepackage[usenames,dvipsnames]{xcolor}	% Colors (needs to be defined before using colors)
+
+% Define custom colors for listings
+\definecolor{listinggray}{gray}{0.98}		% Listings background color
+\definecolor{rulegray}{gray}{0.7}			% Listings rule/frame color
+
+% Style for Verilog
+\lstdefinestyle{Verilog}{
+	language=Verilog,					% Verilog
+	backgroundcolor=\color{listinggray},	% light gray background
+	rulecolor=\color{blue}, 			% blue frame lines
+	frame=tb,							% lines above & below
+	linewidth=\columnwidth, 			% set line width
+	basicstyle=\small\ttfamily,	% basic font style that is used for the code	
+	breaklines=true, 					% allow breaking across columns/pages
+	tabsize=3,							% set tab size
+	commentstyle=\color{gray},	% comments in italic 
+	stringstyle=\upshape,				% strings are printed in normal font
+	showspaces=false,					% don't underscore spaces
+}
+
+% How to use: \Verilog[listing_options]{file}
+\newcommand{\Verilog}[2][]{%
+	\lstinputlisting[style=Verilog,#1]{#2}
+}
+
+
+%code to get a C-style 
+\usepackage{xcolor}
+\usepackage{listings}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+	backgroundcolor=\color{backgroundColour},   
+	commentstyle=\color{mGreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{mGray},
+	stringstyle=\color{mPurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	language=C
+}
+
+
+
+%======================================================
+%=========== Body  ====================================
+\begin{document}
+
+\title{ELC 4396 02 \\ Final Report}
+\author{Jordan Cook}
+
+\maketitle
+
+
+\section{Introduction and Problem Statement} 
+
+\quad This project was a final lab to demonstrate a feature learned in this class. It utilized several concepts, including both GPI and GPO, the XADC, the SSEG-display, and PWM. With all these components put together, a system was built that would read the voltage or the temperature on the board's chip while giving visual feedback and taking user input. Hardware was written using System Verilog in Vivado and software was written using C++ in Vitis. 
+\\\\ Link to the Project: \url{https://github.com/jordanstarr/System-on-Chip}
+\\ Functionality was demonstrated in person and presented to the class. 
+
+\section{Method and Approach}
+
+\subsection{Hardware}
+
+\quad Like most previous assignments, there were 16 files that needed to be imported into Vivado in order to make things work.Those included files were:  
+
+\begin{multicols}{2}
+\begin{itemize}
+	\item chu\_gpi.sv
+	\item chu\_gpo.sv 
+	\item chu\_timer.sv 
+	\item fifo.sv 
+	\item fifo\_ctrl.sv 
+	\item reg\_file.sv
+	\item chu\_mmio\_controller.sv 
+	\item baud\_gen.sv 
+	\item chu\_uart.sv 
+	\item uart.sv 
+	\item uart\_rx.sv 
+	\item uart\_tx.sv 
+	\item chu\_io\_map.sv 
+	\item chu\_mcs\_bridge.sv 
+	\item mmio\_sys\_sampler.sv
+	\item mcs\_top\_sampler.sv
+\end{itemize}
+\end{multicols} 
+
+\quad Several new files were needed to be added in order to make the FPGA programmable in software needed for this project. Those additional files were: 
+
+\begin{multicols}{2}
+\begin{itemize}
+	\item chu\_xadc\_core.sv
+	\item chu\_fpro.sv
+	\item chu\_io\_pwm\_core.sv
+	\item chu\_led\_mux\_core.sv
+	\item led\_mux8.sv 
+\end{itemize}
+\end{multicols}
+
+\quad With these additional files, they needed to be placed in the correct slots in the mmio\_sys\_vanilla. This was learned by viewing the other instantiations and changing them as needed for each of the modules individuals needs for input and output. 
+
+\begin{lstlisting}[style=Verilog,caption= Slot Instantiations,label=code:ex ]
+
+chu_xadc_core xadc_slot5
+	(.clk(clk),
+	.reset(reset),
+	.cs(cs_array[`S5_XDAC]),
+	.read(mem_rd_array[`S5_XDAC]),
+	.write(mem_wr_array[`S5_XDAC]),
+	.addr(reg_addr_array[`S5_XDAC]),
+	.rd_data(rd_data_array[`S5_XDAC]),
+	.wr_data(wr_data_array[`S5_XDAC]),
+	.adc_p(adc_p), 
+	.adc_n(adc_n)
+	);
+
+chu_io_pwm_core #(.W(W), .R(R)) gpi_slot6 
+	(.clk(clk),
+	.reset(reset),
+	.cs(cs_array[`S6_PWM]),
+	.read(mem_rd_array[`S6_PWM]),
+	.write(mem_wr_array[`S6_PWM]),
+	.addr(reg_addr_array[`S6_PWM]),
+	.rd_data(rd_data_array[`S6_PWM]),
+	.wr_data(wr_data_array[`S6_PWM]),
+	.pwm_out(pwm_out)
+	);
+
+chu_led_mux_core sseg_slot8
+	(.clk(clk),
+	.reset(reset),
+	.cs(cs_array[`S8_SSEG]),
+	.read(mem_rd_array[`S8_SSEG]),
+	.write(mem_wr_array[`S8_SSEG]),
+	.addr(reg_addr_array[`S8_SSEG]),
+	.rd_data(rd_data_array[`S8_SSEG]),
+	.wr_data(wr_data_array[`S8_SSEG]),
+	.sseg(sseg), 
+	.an(an)
+	);
+
+\end{lstlisting}
+
+\newpage
+\quad There were several outputs/inputs that needed to be added to both the mmio and the top files. Those were the adc\_p, adc\_n, pwm\_out, sseg, and an. In the top-level file, all the new outputs/inputs were created using the constraint file that Dr. Chu created for the Neyxs 4 DDR board. Here was a listing of all in outputs and inputs: 
+
+\begin{lstlisting}[style=Verilog,caption=Top Level ,label=code:ex ]
+module mcs_top_vanilla
+#(parameter BRG_BASE = 32'hc000_0000)	
+	(
+		input logic clk,
+		input logic reset_n,
+		// switches and LEDs
+		input logic [15:0] sw,
+		output logic [15:0] led,
+		// uart
+		input logic rx,
+		output logic tx, 
+		// XADC     
+		input logic [3:0] adc_p, 
+		input logic [3:0] adc_n,
+		// SSEG
+		output logic [7:0] sseg, 
+		output logic [7:0] an,
+		// pwm rgb LEDs          
+		output logic [2:0] rgb_led1, 
+		output logic [2:0] rgb_led2, 
+		//i2c 
+		output tri tmp_i2c_scl,
+		inout tri  tmp_i2c_sda         
+	);
+
+\end{lstlisting}
+
+\quad At this point, all the hardware was completed and a bit stream could be generated. Once generated, it was all exported into Vitis where software could be written. 
+\newpage
+\subsection{Software}
+\quad The first step in software was to add some of the files provided by Dr. Pong Chu. These files were: 
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item chu\_init
+		\item chu\_init.h
+		\item chu\_io\_map.h
+		\item chu\_io\_rw.h
+		\item gpio\_cores.cpp
+		\item gpio\_cores.h
+		\item timer\_core.cpp
+		\item timer\_core.h
+		\item uart\_core.cpp
+		\item uart\_core.h
+		\item sseg\_core.cpp
+		\item sseg\_core.h
+		\item xadc\_core.cpp
+		\item xadc\_core.h 
+		\item main\_vanilla\_test.cpp	
+	\end{itemize}
+\end{multicols}
+
+\quad The final project utilized several pre-made functions as well as a plethora of newly created functions. The following listing shows the main function as well as the declaration of each of the classes used. 
+
+\begin{lstlisting}[style=CStyle, caption = Declarations and Main]
+// instantiate switch, led
+GpoCore led(get_slot_addr(BRIDGE_BASE, S2_LED));
+GpiCore sw(get_slot_addr(BRIDGE_BASE, S3_SW));
+
+//instantiate my new classes
+XadcCore vcc(get_slot_addr(BRIDGE_BASE, S5_XDAC));
+XadcCore temp(get_slot_addr(BRIDGE_BASE, S5_XDAC));
+SsegCore seg(get_slot_addr(BRIDGE_BASE, S8_SSEG));
+PwmCore rgb(get_slot_addr(BRIDGE_BASE, S6_PWM));
+
+int main() {
+	while (1) {
+		bool switch0 = sw.read(0);
+		bool switch1 = sw.read(1);
+		bool switch2 = sw.read(2);
+		
+		bool isFahr = 0;
+		
+		if (switch0 && !switch1 && !switch2) {
+			writeVCC(&vcc, &seg);
+			voltageLED(&vcc, &led);
+			colorRG(&rgb, &sw);
+		}
+		else if (!switch0 && switch1 && !switch2) {
+			isFahr = 0;
+			writeTemp(&temp, &seg, isFahr);
+			tempLED(&temp, &led, isFahr);
+			colorGB(&rgb, &sw);
+		}
+		else if (!switch0 && !switch1 && switch2) {
+			isFahr = 1;
+			writeTemp(&temp, &seg, isFahr);
+			tempLED(&temp, &led, isFahr);
+			colorBR(&rgb, &sw);
+		}
+		else {
+			errorLED(&led);
+			writeZero(&seg);
+		}
+	}
+}
+
+\end{lstlisting}
+
+\quad The general concept here is that the system checks to see which switch is flipped. If it's the first one, the system needs to go in voltage-mode, meaning that it writes the voltage on the chip to the seven-segment, lights up the appropriate amount of LEDs, and turns on an RGB light that switches from red to green. If the second switch is on, it goes into Celsius-Temperature mode, meaning it writes the temperature in Celsius to the seven-segment display, lights up the appropriate amount of LEDs, and turns on two lights that change from green to blue. Finally if the third switch is flipped, it goes into Fahrenheit-temp mode, writing the temperature in Fahrenheit to the seven-segment display, lighting up the appropriate amount of LEDs, and turning on two lights that change from blue to red. If there happens to be an error (such as a wrong switch being high or multiple switches being on), the code will turn everything off until it is fixed. This is meant to act like a safety feature. Although it isn't necessary in a project with this small of a scope, it is always good practice to have a default safety mode. (There is be more detail with each of these functions).
+
+\quad Three pre-made functions that was invaluable when reading the voltage on the chip was one the 'read\_fpga\_vcc', 'read\_adc\_in', and 'read\_raw'. They all were functions of the Xadc class and already built in. 
+
+\begin{lstlisting}[style=CStyle, caption = Xadc functions]
+uint16_t XadcCore::read_raw(int n) {
+	uint16_t rd_data;
+	
+	rd_data = (uint16_t) io_read(base_addr, n) & 0x0000ffff;
+	return (rd_data);
+}
+
+double XadcCore::read_adc_in(int n) {
+	uint16_t raw;
+	raw = read_raw(n) >> 4;
+	return ((double) raw / 4096.0);
+}
+
+// input source 5 is connected to vcc reading
+double XadcCore::read_fpga_vcc() {
+	return (read_adc_in(VCC_REG) * 3.0);
+}
+\end{lstlisting} 
+
+\newpage
+\quad The first function was writing a value to the seven segment display. (There might be an easier way to write to the LEDs, but this was what was figured out independently). The 'writeVCC' function took in an Xadc pointer and a sseg pointer as arguments. After reading the current voltage on the chip, this function would manipulate the value so that each digit would be displayed individually on the seven-segment. It would write a hexidecimal value to the display (one of the pre-made function). Finally, a decimal point was also included in the proper placement.   
+
+\begin{lstlisting}[style=CStyle, caption = Writing Voltage to 7-seg]
+void writeVCC(XadcCore *vcc, SsegCore *seg) {
+	double voltage;
+	voltage = vcc -> read_fpga_vcc();
+	voltage *= 1000;
+	
+	for (int i = 0; i < 8; i++) {
+		seg->write_1ptn(0xff, i);
+	}
+	
+	seg -> set_dp(0x00);
+	
+	uint8_t d1 = voltage / 1000;
+	uint8_t d2 =(voltage - d1 * 1000) / 100;
+	uint8_t d3 = (voltage - d1 * 1000 - d2 * 100) / 10;
+	uint8_t d4 = (voltage - d1 * 1000 - d2 * 100 - d3 * 10);
+	
+	uart.disp(d3);
+	uart.disp("\n\r");
+	
+	seg -> write_1ptn(seg -> h2s(d1), 3);
+	seg -> write_1ptn(seg -> h2s(d2), 2);
+	seg -> write_1ptn(seg -> h2s(d3), 1);
+	seg -> write_1ptn(seg -> h2s(d4), 0);
+	seg -> set_dp(8);
+	sleep_ms(50);
+}
+\end{lstlisting}
+
+\quad The other function which is a counterpart of this one is the 'writeTemp' function. This is essentially the same exact thing as the 'writeVCC' function, the only difference is that is takes in a bool as an argument that will change the value from Fahrenheit fo Celsius as input by the user. 
+
+\newpage
+\quad In order to understand the number level being presented on the seven-segment display, a level of LEDs were also included to light up based on a scale. Since there were 16 LEDs, a fraction of them were lit up in proportion to the current level (which could be either voltage or temperature). For example, the voltage was placed on a scale between 0 and 3.3V. So when the function would read a value around 3V, a total of 13 lights were light up. Both Celsius and Fahrenheit were put on a scale from 0 to 100 (granted it could get above and below that, but it would be damaging to the board at that point). These lights were light up one at a time like a fuel gauge. The following function shows how this was accomplished with the voltage level (the temperature function is essentially the same function).  
+
+\begin{lstlisting}[style=CStyle, caption = Volage LED Light-up Function]
+void voltageLED(XadcCore *vcc, GpoCore *led_p) {
+
+	double voltage;
+	voltage = vcc -> read_fpga_vcc();
+	
+	double num = voltage / 3.3 * 16;
+	
+	for (int i = 0; i < num - 1; i++) {
+		led_p->write(1, i);
+		sleep_ms(60);
+	}
+}
+\end{lstlisting}
+
+\quad To indicate to the user what type of value is being displayed on the board (whether it is voltage, temperature in Celsius, or temperature in Fahrenheit),  a light switching from different colors of the rainbow is showing an active status. This is similar to a rainbow-LED project created in class report 4, but rather than switching all three colors, only two colors at a time are changed. This causes one color to need to ramp up in value while the other one is ramping down. 
+
+\begin{lstlisting}[style=CStyle, caption = Color changing Function]
+void colorGB(PwmCore *rgb, GpiCore *sw) {
+	double bright1 = 1.0;
+	double bright2 = 1.0;
+	double duty1;
+	double duty2;
+	double P = 1.2589;
+	double percent = 1.0;
+	
+	const int length = 4 * 20;
+	
+	int blue = 0;
+	int green = 1;
+	int red = 2;
+	
+	bool on;
+	rgb -> set_freq(50);
+	
+	rgb -> set_duty(0, green);
+	rgb -> set_duty(0, green + 3);
+	rgb -> set_duty(0, red);
+	rgb -> set_duty(0, red + 3);
+	rgb -> set_duty(0, blue);
+	rgb -> set_duty(0, blue + 3);
+	
+	for (int i = 0; i < length; i++) {
+		on = sw -> read(1);
+		
+		if (!on) {
+			rgb -> set_duty(0, green);
+			rgb -> set_duty(0, green + 3);
+			rgb -> set_duty(0, blue);
+			rgb -> set_duty(0, blue + 3);
+			rgb -> set_duty(0, red);
+			rgb -> set_duty(0, red + 3);
+			break;
+		}
+		
+		if (i <= 20) {
+			rgb -> set_duty(percent * 1.0, blue);
+			rgb -> set_duty(percent * 1.0, blue + 3);
+			
+			rgb -> set_duty(0.0, green);
+			rgb -> set_duty(0.0, green + 3);
+			
+			sleep_ms(5);
+		}
+		else if (i <= 40) {
+			bright1 *= P;
+			duty1 = bright1 / 100.0;
+			
+			bright2 /= P;
+			duty2 = bright2;
+			
+			rgb -> set_duty(percent * duty1, green);
+			rgb -> set_duty(percent * duty1, green + 3);
+			rgb -> set_duty(percent * duty2, blue);
+			rgb -> set_duty(percent * duty2, blue + 3);
+			
+			sleep_ms(100);
+		}
+		else if (i <= 60) {
+			rgb -> set_duty(0.0, blue);
+			rgb -> set_duty(0.0, blue + 3);
+			
+			rgb -> set_duty(percent * 1.0, green);
+			rgb -> set_duty(percent * 1.0, green + 3);
+		
+			sleep_ms(5);
+		}
+		else if (i <=80) {
+			bright1 /= P;
+			duty1 = bright1 / 100.0;
+			
+			bright2 *= P;
+			duty2 = bright2;
+			
+			rgb -> set_duty(percent * duty2, blue);
+			rgb -> set_duty(percent * duty2, blue + 3);
+			rgb -> set_duty(percent * duty1, green);
+			rgb -> set_duty(percent * duty1, green + 3);
+			
+			sleep_ms(100);
+		}
+	}
+}
+\end{lstlisting}
+
+\quad With all of these areas combined in main, a system that would display the different statuses of the chip were able to be displayed as well as given visual queues that would help a user understand what values that are being displayed mean. 
+ 
+\section{Tests}
+\quad This project was completed incrementally. The first and most important step was receiving the data from each of the functions that would communicate the voltage and the temperature. To verify that these were working properly, the functions were read and understood in order to debug. Then the values being calculated were output in Putty to verify that they were within expected parameters. After this step, it was simply a matter of displaying the important data and including visual factors that would aid a user in understanding the number. After a numerical value of data was received, it was broken into parts to be displayed on the seven-segment using the functions included. The lights were then lit and the number of LEDs being lit up were verified manually using a calculator. Finally when testing the RGB color schemes, each light was displayed and dimmed as expected, being tested by visual observation. Finally all these components were put together and due to each incremental test, they all worked in conjunction. 
+\\
+\section{Results}
+\quad The result of this project was a system that would check the status of a chip and see if it was functioning properly. This was first done by measuring the voltage reading on the chip and seeing if it was between 0 and 3.3V. It was measured to be around 3.0V consistently. Next, the temperature was read and was found to be slightly above room temperature. This is expected because the chip was generating a small amount of heat, and it would be illogical for the chip to be below the ambient temperautre. It was all displayed on a seven-segment display and when reading temperature, the user could deicde bewteen Fahrenheit and Celsius. The 16-LEDs also lit up in proportion to the displayed value. The two RGB LEDs had a specific pattern to indicate what value was being displayed in order to have a user understand exactly what value they were reading on the display. 
+\\
+\section{Conclusion}
+\quad  This project sucessfully demonstrated a chip-status checker. It was important to read the voltage on a chip and verify that it was between 0 and 3.3V. If it were 0V, this should indicate to a user that the chip is no longer functioning and if it were getting close to the maximum value of 3.3V, this would indicate to the user that it was reaching a critical max. In between these two values would verify proper functioning. The temperature would also be important to know. At certain values that are too hot, a chip could be damaged, so it would be important for a user to know that it is within safe parameters. Finally, it was designed to be user friendly by adding lights to translate the numbers better. For example if the user was not an engineer that had all the important parameters measured, these lights could show how close it was to unsafe values. All in all, this was a very helpful project learning in how to always keep a chip safe by monitoring several values. 
+
+\end{document}

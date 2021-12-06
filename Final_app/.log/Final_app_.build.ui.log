@@ -1,0 +1,89 @@
+2021-12-01T14:40:39.878246600255-14:40:39 **** Build of project Final_app ****
+000-buildplatform.bat 63630 Final_app  
+000-XSDB Server Channel: tcfchan#2
+000-Reading the platform  : "Final_app"
+000-Building the BSP Library for domain  - standalone_domain on processor microblaze_I
+000-make --no-print-directory seq_libs
+000-
+000-'Finished building libraries sequentially.'
+000-
+000-make -j 6 --no-print-directory par_libs
+000-
+000-"Running Make include in microblaze_I/libsrc/bram_v4_6/src"
+000-
+000-make -C microblaze_I/libsrc/bram_v4_6/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILE
+000-R_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata
+000--sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+000-
+000-"Running Make include in microblaze_I/libsrc/cpu_v2_13/src"
+000-
+000-make -C microblaze_I/libsrc/cpu_v2_13/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILE
+000-R_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata
+000--sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+000-
+000-"Running Make include in microblaze_I/libsrc/iomodule_v2_11/src"
+000-
+000-make -C microblaze_I/libsrc/iomodule_v2_11/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "CO
+000-MPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -
+000-fdata-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+000-
+000-"Running Make include in microblaze_I/libsrc/standalone_v7_5/src"
+000-
+000-make -C microblaze_I/libsrc/standalone_v7_5/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "C
+000-OMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections 
+000--fdata-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+000-
+000-"Running Make libs in microblaze_I/libsrc/bram_v4_6/src"
+000-
+000-make -C microblaze_I/libsrc/bram_v4_6/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILER_F
+000-LAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-se
+000-ctions -Wall -Wextra -fno-tree-loop-distribute-patterns"
+000-
+000-"Running Make libs in microblaze_I/libsrc/cpu_v2_13/src"
+000-
+000-make -C microblaze_I/libsrc/cpu_v2_13/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPILER_F
+000-LAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-se
+000-ctions -Wall -Wextra -fno-tree-loop-distribute-patterns"
+000-
+000-"Running Make libs in microblaze_I/libsrc/iomodule_v2_11/src"
+000-
+000-make -C microblaze_I/libsrc/iomodule_v2_11/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMPI
+000-LER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fda
+000-ta-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+000-
+000-"Running Make libs in microblaze_I/libsrc/standalone_v7_5/src"
+000-
+000-make -C microblaze_I/libsrc/standalone_v7_5/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ASSEMBLER=mb-as" "ARCHIVER=mb-ar" "COMP
+000-ILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mno-xl-reorder -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fd
+000-ata-sections -Wall -Wextra -fno-tree-loop-distribute-patterns"
+000-
+000-'Finished building libraries parallelly.'
+000-
+000-make --no-print-directory archive
+000-
+000-mb-ar -r  microblaze_I/lib/libxil.a microblaze_I/lib/xplatform_info.o microblaze_I/lib/microblaze_disable_exceptions.o microbla
+000-ze_I/lib/print.o microblaze_I/lib/_exit.o microblaze_I/lib/xil_testio.o microblaze_I/lib/microblaze_disable_dcache.o microblaze
+000-_I/lib/microblaze_flush_dcache_range.o microblaze_I/lib/microblaze_flush_cache_ext.o microblaze_I/lib/xbram_sinit.o microblaze_
+000-I/lib/xil_misc_psreset_api.o microblaze_I/lib/xil_cache.o microblaze_I/lib/inbyte.o microblaze_I/lib/xbram_g.o microblaze_I/lib
+000-/xiomodule_intr.o microblaze_I/lib/xiomodule_options.o microblaze_I/lib/microblaze_exception_handler.o microblaze_I/lib/microbl
+000-aze_scrub.o microblaze_I/lib/microblaze_invalidate_dcache.o microblaze_I/lib/microblaze_disable_interrupts.o microblaze_I/lib/x
+000-bram_selftest.o microblaze_I/lib/microblaze_interrupt_handler.o microblaze_I/lib/xiomodule_l.o microblaze_I/lib/microblaze_disa
+000-ble_icache.o microblaze_I/lib/xil_clocking.o microblaze_I/lib/xil_mem.o microblaze_I/lib/xiomodule.o microblaze_I/lib/microblaz
+000-e_flush_cache_ext_range.o microblaze_I/lib/xbram_intr.o microblaze_I/lib/xil_sleepcommon.o microblaze_I/lib/xil_printf.o microb
+000-laze_I/lib/xio.o microblaze_I/lib/xiomodule_extra.o microblaze_I/lib/outbyte.o microblaze_I/lib/microblaze_invalidate_dcache_ra
+000-nge.o microblaze_I/lib/microblaze_invalidate_cache_ext.o microblaze_I/lib/microblaze_sleep.o microblaze_I/lib/hw_exception_hand
+000-ler.o microblaze_I/lib/xiomodule_stats.o microblaze_I/lib/xil_util.o microblaze_I/lib/microblaze_update_dcache.o microblaze_I/l
+000-ib/xil_testcache.o microblaze_I/lib/microblaze_selftest.o microblaze_I/lib/microblaze_interrupts_g.o microblaze_I/lib/microblaz
+000-e_enable_exceptions.o microblaze_I/lib/xiomodule_uart_intr.o microblaze_I/lib/microblaze_enable_dcache.o microblaze_I/lib/xbram
+000-.o microblaze_I/lib/microblaze_invalidate_icache_range.o microblaze_I/lib/microblaze_init_dcache_range.o microblaze_I/lib/micro
+000-blaze_invalidate_icache.o microblaze_I/lib/errno.o microblaze_I/lib/xiomodule_uart.o microblaze_I/lib/microblaze_invalidate_cac
+000-he_ext_range.o microblaze_I/lib/xil_exception.o microblaze_I/lib/pvr.o microblaze_I/lib/xil_testmem.o microblaze_I/lib/microbla
+000-ze_update_icache.o microblaze_I/lib/microblaze_flush_dcache.o microblaze_I/lib/xiomodule_g.o microblaze_I/lib/xil_assert.o micr
+000-oblaze_I/lib/microblaze_enable_interrupts.o microblaze_I/lib/microblaze_enable_icache.o microblaze_I/lib/xiomodule_selftest.o m
+000-icroblaze_I/lib/fcntl.o microblaze_I/lib/microblaze_init_icache_range.o
+000-
+000-'Finished building libraries'
+000-
+00255-
+14:40:49 Build Finished (took 9s.164ms)
+
